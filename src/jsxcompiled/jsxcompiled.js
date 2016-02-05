@@ -2,34 +2,6 @@
 /*! rc_header_v1.js */
 var rc = {};
 'use strict';
-/*! dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
-        );
-    }
-});
-'use strict';
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
@@ -58,6 +30,144 @@ rc.breakingbadPageComponent = React.createClass({
                 )
             ),
             React.createElement(rc.quizComponent, { data: SiteConfig.quiz.breakingbad })
+        );
+    }
+});
+'use strict';
+/*! firefly/firefly.jsx */
+rc.fireflyPageComponent = React.createClass({
+    displayName: 'fireflyPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    componentDidMount: function componentDidMount() {
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
+            description: 'Ghoulish Reaver Ships, attacking a village'
+        });
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-spacestation.jpg',
+            description: 'Niska\'s Skyplex Spacestation, orbiting Ezra'
+        });
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly.jpg',
+            description: 'Serenity, Firefly class spaceship'
+        });
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'fireflypage' },
+            React.createElement('img', { className: 'mainpic', src: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-cast.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'This page is an example of event driven architecture where sibling components communicate and pass data.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Click on an item below and it will move to the other container. An item will either take on text form or image form depending upon which container it is in.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Each child component is different and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                'When an item is clicked the component takes care of itself by removing the item from its model, sending the event to Grand Central with appropriate payload data and finally rerendering according to its models new content.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'The last thing to note is that the code for these views is not stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/jsx-special'
+                ),
+                'I chose to do this because its not instanciated on different pages.  Instead each component is instanciated once and is specific to the FireFly page experience.  Therefore it makes sense to store the javascript in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/jsx-pages/firefly'
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Note the JSX filenames are ignored at compile time, I could have put all components in the one file and it would be the same.'
+            ),
+            React.createElement(rc.fireflyDescriptions, null),
+            React.createElement(rc.fireflyImages, null)
+        );
+    }
+});
+'use strict';
+/*! dexter/dexter.jsx */
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
+'use strict';
+/*! hannibal/hannibal.jsx */
+rc.hannibalPageComponent = React.createClass({
+    displayName: 'hannibalPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'hannibalpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
         );
     }
 });
@@ -186,6 +296,95 @@ rc.homePageComponent = React.createClass({
     }
 });
 'use strict';
+/*! hungergames/hungergames.jsx */
+rc.hungergamesPageComponent = React.createClass({
+    displayName: 'hungergamesPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {
+            districtNumber: 13,
+            sheSaid: ['Peeta I love you', 'Let\'s kill President Snow']
+        });
+    },
+    addSaying: function addSaying() {
+        this.setState({
+            sheSaid: this.state.sheSaid.concat([this.refs.inpText.getDOMNode().value])
+        });
+    },
+    removeSaying: function removeSaying() {
+        this.setState({
+            sheSaid: this.state.sheSaid.slice(0, this.state.sheSaid.length - 1)
+        });
+    },
+    updateNumber: function updateNumber() {
+        this.setState({
+            districtNumber: this.refs.inpNumber.getDOMNode().value
+        });
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var outputArray = [];
+        for (var i = 0; i < this.state.sheSaid.length; i++) {
+            outputArray.push(React.createElement(
+                'div',
+                { key: i },
+                this.state.sheSaid[i]
+            ));
+        }
+        return React.createElement(
+            'div',
+            { id: 'hungergamespage' },
+            React.createElement(
+                'p',
+                null,
+                'The Hunger Games page demonstrates how the page can impose its own local Model onto',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'this.state'
+                )
+            ),
+            React.createElement(
+                'div',
+                null,
+                'She is from District ',
+                this.state.districtNumber
+            ),
+            'She said ...',
+            React.createElement('br', null),
+            outputArray,
+            React.createElement(
+                'label',
+                null,
+                'Add a saying '
+            ),
+            React.createElement('input', { className: 'hungerinput', type: 'text', ref: 'inpText' }),
+            React.createElement(
+                'div',
+                { className: 'linkitem', onClick: this.addSaying },
+                'Add'
+            ),
+            React.createElement(
+                'div',
+                { className: 'linkitem', onClick: this.removeSaying },
+                'Remove a saying '
+            ),
+            React.createElement('br', null),
+            React.createElement(
+                'label',
+                null,
+                'Change her District Number '
+            ),
+            React.createElement('input', { className: 'hungerinput', type: 'number', ref: 'inpNumber' }),
+            React.createElement(
+                'div',
+                { className: 'linkitem', onClick: this.updateNumber },
+                'Update'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hungergamespage/hungergames.jpg' })
+        );
+    }
+});
+'use strict';
 /*! madmax/madmax.jsx */
 rc.madmaxPageComponent = React.createClass({
     displayName: 'madmaxPageComponent',
@@ -277,205 +476,6 @@ rc.madmaxPageComponent = React.createClass({
     }
 });
 'use strict';
-/*! hungergames/hungergames.jsx */
-rc.hungergamesPageComponent = React.createClass({
-    displayName: 'hungergamesPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {
-            districtNumber: 13,
-            sheSaid: ['Peeta I love you', 'Let\'s kill President Snow']
-        });
-    },
-    addSaying: function addSaying() {
-        this.setState({
-            sheSaid: this.state.sheSaid.concat([this.refs.inpText.getDOMNode().value])
-        });
-    },
-    removeSaying: function removeSaying() {
-        this.setState({
-            sheSaid: this.state.sheSaid.slice(0, this.state.sheSaid.length - 1)
-        });
-    },
-    updateNumber: function updateNumber() {
-        this.setState({
-            districtNumber: this.refs.inpNumber.getDOMNode().value
-        });
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        var outputArray = [];
-        for (var i = 0; i < this.state.sheSaid.length; i++) {
-            outputArray.push(React.createElement(
-                'div',
-                { key: i },
-                this.state.sheSaid[i]
-            ));
-        }
-        return React.createElement(
-            'div',
-            { id: 'hungergamespage' },
-            React.createElement(
-                'p',
-                null,
-                'The Hunger Games page demonstrates how the page can impose its own local Model onto',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'this.state'
-                )
-            ),
-            React.createElement(
-                'div',
-                null,
-                'She is from District ',
-                this.state.districtNumber
-            ),
-            'She said ...',
-            React.createElement('br', null),
-            outputArray,
-            React.createElement(
-                'label',
-                null,
-                'Add a saying '
-            ),
-            React.createElement('input', { className: 'hungerinput', type: 'text', ref: 'inpText' }),
-            React.createElement(
-                'div',
-                { className: 'linkitem', onClick: this.addSaying },
-                'Add'
-            ),
-            React.createElement(
-                'div',
-                { className: 'linkitem', onClick: this.removeSaying },
-                'Remove a saying '
-            ),
-            React.createElement('br', null),
-            React.createElement(
-                'label',
-                null,
-                'Change her District Number '
-            ),
-            React.createElement('input', { className: 'hungerinput', type: 'number', ref: 'inpNumber' }),
-            React.createElement(
-                'div',
-                { className: 'linkitem', onClick: this.updateNumber },
-                'Update'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hungergamespage/hungergames.jpg' })
-        );
-    }
-});
-'use strict';
-/*! firefly/firefly.jsx */
-rc.fireflyPageComponent = React.createClass({
-    displayName: 'fireflyPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    componentDidMount: function componentDidMount() {
-        grandCentral.trigger('to_fireflyDescriptions', {
-            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
-            description: 'Ghoulish Reaver Ships, attacking a village'
-        });
-        grandCentral.trigger('to_fireflyDescriptions', {
-            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-spacestation.jpg',
-            description: 'Niska\'s Skyplex Spacestation, orbiting Ezra'
-        });
-        grandCentral.trigger('to_fireflyDescriptions', {
-            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly.jpg',
-            description: 'Serenity, Firefly class spaceship'
-        });
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'fireflypage' },
-            React.createElement('img', { className: 'mainpic', src: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-cast.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'This page is an example of event driven architecture where sibling components communicate and pass data.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Click on an item below and it will move to the other container. An item will either take on text form or image form depending upon which container it is in.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Each child component is different and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(
-                'p',
-                null,
-                'When an item is clicked the component takes care of itself by removing the item from its model, sending the event to Grand Central with appropriate payload data and finally rerendering according to its models new content.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'The last thing to note is that the code for these views is not stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/jsx-special'
-                ),
-                'I chose to do this because its not instanciated on different pages.  Instead each component is instanciated once and is specific to the FireFly page experience.  Therefore it makes sense to store the javascript in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/jsx-pages/firefly'
-                )
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Note the JSX filenames are ignored at compile time, I could have put all components in the one file and it would be the same.'
-            ),
-            React.createElement(rc.fireflyDescriptions, null),
-            React.createElement(rc.fireflyImages, null)
-        );
-    }
-});
-'use strict';
-/*! hannibal/hannibal.jsx */
-rc.hannibalPageComponent = React.createClass({
-    displayName: 'hannibalPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'hannibalpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
-        );
-    }
-});
-'use strict';
 /*! thrones/thrones.jsx */
 rc.thronesPageComponent = React.createClass({
     displayName: 'thronesPageComponent',
@@ -544,6 +544,7 @@ rc.walkingPageComponent = React.createClass({
     },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
+        jQuery('#asdf').html('asdf');
         var key = this.state.currentFragsArray[0];
         var data;
         var panel;
@@ -729,6 +730,53 @@ rc.header = React.createClass({
     }
 });
 'use strict';
+/*! loader/loader.jsx */
+rc.loader = React.createClass({
+    displayName: 'loader',
+    stack: [],
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount(currentPage) {
+        var self = this;
+        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
+            if ($.inArray(uniqueString, self.stack) == -1) {
+                console.log('loaderStart(' + uniqueString + ')');
+                self.stack.push(uniqueString);
+                self.setState({ show: true });
+            }
+        });
+        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
+            var i = $.inArray(uniqueString, self.stack);
+            if (i > -1) {
+                self.stack.splice(i, 1);
+                console.log('loaderEnd(' + uniqueString + ')');
+            }
+            if (self.stack.length === 0) {
+                self.setState({ show: false });
+            }
+        });
+    },
+    reset: function reset() {
+        this.stack = [];
+        this.setState({ show: false });
+    },
+    render: function render() {
+        var classes = this.state.show ? 'active' : '';
+        return React.createElement(
+            'div',
+            { id: 'loader', className: classes },
+            React.createElement(
+                'div',
+                { className: 'loadingmessage' },
+                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
+            )
+        );
+    }
+});
+'use strict';
 /*! nav/nav.jsx */
 rc.nav = React.createClass({
 	displayName: 'nav',
@@ -813,53 +861,6 @@ rc.nav = React.createClass({
 			)
 		);
 	}
-});
-'use strict';
-/*! loader/loader.jsx */
-rc.loader = React.createClass({
-    displayName: 'loader',
-    stack: [],
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount(currentPage) {
-        var self = this;
-        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
-            if ($.inArray(uniqueString, self.stack) == -1) {
-                console.log('loaderStart(' + uniqueString + ')');
-                self.stack.push(uniqueString);
-                self.setState({ show: true });
-            }
-        });
-        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
-            var i = $.inArray(uniqueString, self.stack);
-            if (i > -1) {
-                self.stack.splice(i, 1);
-                console.log('loaderEnd(' + uniqueString + ')');
-            }
-            if (self.stack.length === 0) {
-                self.setState({ show: false });
-            }
-        });
-    },
-    reset: function reset() {
-        this.stack = [];
-        this.setState({ show: false });
-    },
-    render: function render() {
-        var classes = this.state.show ? 'active' : '';
-        return React.createElement(
-            'div',
-            { id: 'loader', className: classes },
-            React.createElement(
-                'div',
-                { className: 'loadingmessage' },
-                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
-            )
-        );
-    }
 });
 "use strict";
 /*! parentsadvisory/parentsadvisory.jsx */

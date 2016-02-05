@@ -6,7 +6,7 @@ rc.walkingPageComponent = React.createClass({
 
     render:function(){
         console.log(this.constructor.displayName+' render()');
-
+        jQuery('#asdf').html('asdf');
         // lets have some render logic for an if else to switch between two child components
         // inject the correct data from config based on deeplink
         // OR 
